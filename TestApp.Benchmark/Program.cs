@@ -47,6 +47,7 @@ namespace TestApp.Benchmark
         private Schedule OldSchedule = null!;
         private NewSchedule NewSchedule = null!;
         private NewScheduleCopypasted NewScheduleCopypasted = null!;
+        private TreeSchedule TreeSchedule = null!;
 
         [GlobalSetup]
         public void Setup()
@@ -55,6 +56,7 @@ namespace TestApp.Benchmark
             OldSchedule = new Schedule(Pattern);
             NewSchedule = new NewSchedule(Pattern);
             NewScheduleCopypasted = new NewScheduleCopypasted(Pattern);
+            TreeSchedule = new TreeSchedule(Pattern);
         }
 
         [Benchmark(Baseline = true)]
@@ -65,6 +67,9 @@ namespace TestApp.Benchmark
 
         [Benchmark]
         public object FindNextNewTypelevel() => NewSchedule.NextEvent(Date);
+        
+        [Benchmark]
+        public object FindNextTree() => TreeSchedule.NextEvent(Date);
     }
 
     [SimpleJob(RuntimeMoniker.Net50)]
